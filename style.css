@@ -1,0 +1,111 @@
+body { 
+    font-family: 'Inter', sans-serif; 
+    background-color: #f8fafc; 
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px; 
+}
+::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 10px; 
+}
+::-webkit-scrollbar-thumb:hover { 
+    background: #94a3b8; 
+}
+
+/* Animations */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.message-enter { animation: slideUp 0.4s ease-out forwards; }
+.fade-in { animation: slideUp 0.5s ease-out forwards; }
+
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+.typing-dot {
+    width: 5px; 
+    height: 5px; 
+    background-color: #059669; 
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+/* Glassmorphism & Cards */
+.glass-header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+.glass-card {
+    background: white;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border-color: #d1fae5;
+}
+
+/* Diet Table Styles (for dynamic content) */
+.diet-table { 
+    width: 100%; 
+    border-collapse: separate; 
+    border-spacing: 0; 
+    font-size: 0.875rem; 
+    margin-top: 12px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px; 
+    overflow: hidden; 
+}
+.diet-table th { 
+    background-color: #f8fafc; 
+    text-align: left; 
+    padding: 10px 12px; 
+    color: #475569; 
+    font-weight: 600; 
+    border-bottom: 1px solid #e2e8f0; 
+}
+.diet-table td { 
+    border-bottom: 1px solid #f1f5f9; 
+    padding: 10px 12px; 
+    vertical-align: top; 
+    color: #334155; 
+}
+.diet-table tr:last-child td { 
+    border-bottom: none; 
+}
+.diet-table tr:hover td { 
+    background-color: #f8fafc; 
+}
+
+/* Markdown Content Styling within Chat */
+/* Tailwind's prose class is applied to the content wrapper, but we keep the specific overrides */
+.prose ul { 
+    list-style-type: disc; 
+    padding-left: 1.5rem; 
+    margin-top: 0.5rem; 
+    margin-bottom: 0.5rem; 
+}
+.prose li { 
+    margin-bottom: 0.25rem; 
+}
+.prose p { 
+    margin-bottom: 0.5rem; 
+}
+.prose strong { 
+    color: #1e293b; 
+    font-weight: 600; 
+}

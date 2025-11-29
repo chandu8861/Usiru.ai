@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usiru Medical Assistant</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 12h-4l-3 9L9 3l-3 9H2'/></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-screen flex overflow-hidden text-slate-800 selection:bg-emerald-100 selection:text-emerald-900">
+
+    <aside class="w-20 lg:w-72 bg-white border-r border-slate-100 flex flex-col h-full z-20 transition-all duration-300 flex-shrink-0">
+        <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-slate-50">
+            <div class="relative w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-slate-200">
+                <i data-lucide="activity" class="text-white w-5 h-5"></i>
+                <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
+            </div>
+            <div class="hidden lg:block ml-3">
+                <h1 class="font-bold text-lg text-slate-900 tracking-tight">Usiru<span class="text-emerald-600">AI</span></h1>
+                <p class="text-[10px] text-slate-400 uppercase tracking-widest font-medium">Medical Assistant</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 py-6 px-3 lg:px-4 space-y-2 overflow-y-auto">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center justify-center lg:justify-start lg:px-4 py-3.5 rounded-xl transition-all group relative bg-emerald-50 text-emerald-600 shadow-sm shadow-emerald-100">
+                <i data-lucide="layout-grid" class="w-5 h-5 shrink-0 transition-colors"></i>
+                <span class="hidden lg:block ml-3 font-medium text-sm">Overview</span>
+            </button>
+            <button onclick="switchTab('chat')" id="nav-chat" class="w-full flex items-center justify-center lg:justify-start lg:px-4 py-3.5 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition-all group relative">
+                <i data-lucide="message-square" class="w-5 h-5 shrink-0 transition-colors"></i>
+                <span class="hidden lg:block ml-3 font-medium text-sm">Chat Assistant</span>
+            </button>
+            <button onclick="switchTab('docs')" id="nav-docs" class="w-full flex items-center justify-center lg:justify-start lg:px-4 py-3.5 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition-all group relative">
+                <i data-lucide="file-search" class="w-5 h-5 shrink-0 transition-colors"></i>
+                <span class="hidden lg:block ml-3 font-medium text-sm">Report Analyzer</span>
+            </button>
+            <button onclick="switchTab('settings')" id="nav-settings" class="w-full flex items-center justify-center lg:justify-start lg:px-4 py-3.5 rounded-xl text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition-all group relative">
+                <i data-lucide="settings-2" class="w-5 h-5 shrink-0 transition-colors"></i>
+                <span class="hidden lg:block ml-3 font-medium text-sm">Settings</span>
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-slate-50">
+            <div class="flex items-center justify-center lg:justify-start p-2 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors">
+                <div class="w-9 h-9 rounded-full bg-slate-200 overflow-hidden ring-2 ring-slate-100">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mani" alt="User" class="w-full h-full object-cover">
+                </div>
+                <div class="hidden lg:block ml-3 overflow-hidden">
+                    <p class="text-sm font-semibold text-slate-900 truncate">Mani</p>
+                    <p class="text-xs text-slate-400 truncate">Pro Plan</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col relative bg-[#f8fafc] w-full overflow-hidden">
+        
+        <header class="h-20 px-6 lg:px-10 flex items-center justify-between glass-header sticky top-0 z-10 shrink-0">
+            <div>
+                <h2 id="page-title" class="text-xl font-bold text-slate-800">Overview</h2>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <p class="text-xs text-slate-500 font-medium">Systems Operational</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-emerald-600 hover:border-emerald-200 hover:shadow-md transition-all">
+                    <i data-lucide="bell" class="w-4.5 h-4.5"></i>
+                </button>
+            </div>
+        </header>
+
+        <div id="view-dashboard" class="flex-1 overflow-y-auto p-6 lg:px-10 lg:py-8 scroll-smooth">
+            <div class="max-w-6xl mx-auto space-y-8 fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900">Good Morning, Mani! 👋</h3>
+                        <p class="text-slate-500 mt-1">Here's your daily health summary.</p>
+                    </div>
+                    <button onclick="switchTab('chat')" class="flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-900/10 text-sm font-medium">
+                        <i data-lucide="plus" class="w-4 h-4"></i> New Check-up
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center"><i data-lucide="heart" class="w-4 h-4"></i></div>
+                            <span class="text-sm font-medium text-slate-500">Heart Rate</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-slate-900">72</span>
+                            <span class="text-xs text-slate-400 font-medium">bpm</span>
+                        </div>
+                        <div class="mt-2 text-xs text-emerald-600 font-medium bg-emerald-50 inline-block px-2 py-1 rounded">Normal</div>
+                    </div>
+                    
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center"><i data-lucide="activity" class="w-4 h-4"></i></div>
+                            <span class="text-sm font-medium text-slate-500">Blood Pressure</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-slate-900">120/80</span>
+                            <span class="text-xs text-slate-400 font-medium">mmHg</span>
+                        </div>
+                        <div class="mt-2 text-xs text-emerald-600 font-medium bg-emerald-50 inline-block px-2 py-1 rounded">Optimal</div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-500 flex items-center justify-center"><i data-lucide="moon" class="w-4 h-4"></i></div>
+                            <span class="text-sm font-medium text-slate-500">Sleep</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-slate-900">7h 30m</span>
+                        </div>
+                        <div class="mt-2 text-xs text-slate-400 font-medium">Last Night</div>
+                    </div>
+
+                   <div class="glass-card p-5 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center"><i data-lucide="scale" class="w-4 h-4"></i></div>
+                            <span class="text-sm font-medium text-slate-500">Weight</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-slate-900">70.5</span>
+                            <span class="text-xs text-slate-400 font-medium">kg</span>
+                        </div>
+                        <div class="mt-2 text-xs text-red-500 font-medium flex items-center gap-1"><i data-lucide="trending-up" class="w-3 h-3"></i> +0.5kg</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <div class="col-span-1 lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div onclick="switchTab('chat')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-emerald-200 group relative overflow-hidden">
+                             <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-50 rounded-full opacity-50 group-hover:scale-110 transition-transform"></div>
+                             <div class="relative z-10">
+                                 <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                     <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                                 </div>
+                                 <h4 class="font-bold text-slate-800 text-lg">Symptom Checker</h4>
+                                 <p class="text-sm text-slate-500 mt-1">Describe how you feel and get instant analysis & remedies.</p>
+                             </div>
+                        </div>
+
+                        <div onclick="switchTab('docs')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-blue-200 group relative overflow-hidden">
+                             <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-50 rounded-full opacity-50 group-hover:scale-110 transition-transform"></div>
+                             <div class="relative z-10">
+                                 <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                     <i data-lucide="file-text" class="w-6 h-6"></i>
+                                 </div>
+                                 <h4 class="font-bold text-slate-800 text-lg">Analyze Report</h4>
+                                 <p class="text-sm text-slate-500 mt-1">Simplify complex lab reports or prescriptions in seconds.</p>
+                             </div>
+                        </div>
+                        
+                        <div class="sm:col-span-2 glass-card p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+                             <div class="flex items-start gap-4">
+                                 <div class="p-3 bg-white/10 rounded-xl shrink-0">
+                                     <i data-lucide="quote" class="w-5 h-5 text-emerald-400"></i>
+                                 </div>
+                                 <div>
+                                     <p class="font-medium text-lg leading-relaxed">"The groundwork of all happiness is health."</p>
+                                     <p class="text-sm text-slate-400 mt-2">— Leigh Hunt</p>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+
+                    <div class="col-span-1 space-y-4">
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i> Upcoming
+                            </h4>
+                            
+                            <div class="space-y-4">
+                                <div class="flex gap-3">
+                                    <div class="flex flex-col items-center justify-center w-12 h-12 bg-emerald-50 text-emerald-700 rounded-xl shrink-0 border border-emerald-100">
+                                        <span class="text-[10px] font-bold uppercase">Jun</span>
+                                        <span class="text-lg font-bold leading-none">12</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-800">General Checkup</p>
+                                        <p class="text-xs text-slate-500">Dr. Sarah Smith • 10:00 AM</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <div class="flex flex-col items-center justify-center w-12 h-12 bg-slate-50 text-slate-500 rounded-xl shrink-0 border border-slate-200">
+                                        <span class="text-[10px] font-bold uppercase">Jun</span>
+                                        <span class="text-lg font-bold leading-none">15</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-800">Dental Cleaning</p>
+                                        <p class="text-xs text-slate-500">City Dental • 02:30 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-slate-100">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Activity</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">
+                                    <i data-lucide="clock" class="w-3 h-3 text-emerald-500"></i>
+                                    Last chat: "Headache relief" (2h ago)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl">
+                            <div class="flex justify-between items-center mb-4">
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                                    <i data-lucide="syringe" class="w-4 h-4 text-emerald-500"></i> Vaccinations
+                                </h4>
+                                <button class="text-xs text-emerald-600 font-medium hover:underline">View All</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="relative pl-4 border-l border-slate-100 pb-1">
+                                    <div class="absolute -left-1 top-1.5 w-2 h-2 rounded-full bg-emerald-400 ring-4 ring-white"></div>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-800">Annual Flu Shot</p>
+                                            <p class="text-xs text-slate-400">Oct 15, 2024</p>
+                                        </div>
+                                        <span class="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded font-medium border border-emerald-100">Done</span>
+                                    </div>
+                                </div>
+
+                                <div class="relative pl-4 border-l border-slate-100 pb-1">
+                                    <div class="absolute -left-1 top-1.5 w-2 h-2 rounded-full bg-amber-400 ring-4 ring-white"></div>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-800">Tetanus Booster</p>
+                                            <p class="text-xs text-slate-400">Due: Dec 10, 2025</p>
+                                        </div>
+                                        <span class="text-[10px] bg-amber-50 text-amber-600 px-2 py-0.5 rounded font-medium border border-amber-100">Soon</span>
+                                    </div>
+                                </div>
+
+                                <div class="relative pl-4 border-l border-slate-100">
+                                    <div class="absolute -left-1 top-1.5 w-2 h-2 rounded-full bg-slate-200 ring-4 ring-white"></div>
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-800">Hepatitis B</p>
+                                            <p class="text-xs text-slate-400">Due: Mar 20, 2026</p>
+                                        </div>
+                                        <span class="text-[10px] bg-slate-50 text-slate-400 px-2 py-0.5 rounded font-medium border border-slate-100">Later</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-chat" class="hidden flex-1 flex flex-col relative overflow-hidden">
+            <div id="chat-container" class="flex-1 overflow-y-auto px-4 lg:px-10 py-8 space-y-8 scroll-smooth">
+                <div class="flex gap-4 message-enter">
+                    <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center shrink-0 shadow-md">
+                        <i data-lucide="bot" class="text-white w-6 h-6"></i>
+                    </div>
+                    <div class="flex flex-col gap-1 max-w-2xl">
+                        <span class="text-xs font-bold text-slate-400 ml-1 uppercase tracking-wider">Usiru AI</span>
+                        <div class="bg-white p-5 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-sm leading-relaxed text-slate-600 prose">
+                            <p>Hello Mani! I am Usiru. I use Gemini AI to process your symptoms intelligently.</p>
+                            <p>Please enter your <b>Gemini API Key</b> in Settings for the best experience. I can auto-correct your inputs, suggest remedies, and even <b>create custom diet plans</b> for your condition.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="typing-indicator" class="hidden px-6 lg:px-10 pb-4">
+                <div class="flex gap-4">
+                    <div class="w-10 h-10 shrink-0"></div>
+                    <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm w-fit flex items-center gap-1">
+                        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 lg:px-10 pb-8 pt-2 bg-gradient-to-t from-[#f8fafc] via-[#f8fafc] to-transparent z-20">
+                <div class="max-w-4xl mx-auto relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-2xl opacity-50 group-hover:opacity-100 transition duration-500 blur"></div>
+                    <form id="chat-form" class="relative flex items-center bg-white rounded-2xl shadow-sm border border-slate-100 p-2 pr-3">
+                        <input type="text" id="chat-input" placeholder="Type your symptoms (e.g., 'I have high fever')..." class="flex-1 bg-transparent border-none focus:outline-none text-sm text-slate-800 placeholder-slate-400 px-4 py-2" autocomplete="off">
+                        <button type="submit" class="p-3 bg-slate-900 text-white rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/30 active:scale-95">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-docs" class="hidden flex-1 overflow-hidden flex flex-col">
+             <div class="flex-1 p-4 lg:px-10 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6 h-full overflow-y-auto">
+                
+                <div class="col-span-1 space-y-6">
+                    <div class="glass-card p-6 rounded-2xl border-emerald-100 bg-emerald-50/30">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 shadow-sm">
+                            <i data-lucide="file-search" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-lg">Medical Report Simplifier</h3>
+                        <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                            Medical jargon can be confusing. Paste text from your lab reports, prescriptions, or doctor's notes here.
+                        </p>
+                        <div class="mt-4 flex items-center gap-2 text-xs font-bold text-emerald-700 uppercase tracking-wide">
+                            <i data-lucide="sparkles" class="w-3 h-3"></i> Powered by Gemini AI
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-semibold text-slate-800 text-sm">Recent Scans</h4>
+                            <button class="text-xs text-emerald-600 font-medium hover:underline">View All</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group border border-transparent hover:border-slate-100">
+                                <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-white group-hover:shadow-sm transition-all">
+                                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <p class="text-sm font-medium text-slate-700 truncate">Blood_Work_May24.pdf</p>
+                                    <p class="text-[10px] text-slate-400">Analyzed 2 days ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer group border border-transparent hover:border-slate-100">
+                                <div class="w-10 h-10 bg-purple-50 text-purple-500 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-white group-hover:shadow-sm transition-all">
+                                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <p class="text-sm font-medium text-slate-700 truncate">Lipid_Profile.pdf</p>
+                                    <p class="text-[10px] text-slate-400">Analyzed 5 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-2 glass-card rounded-2xl flex flex-col overflow-hidden h-[600px] lg:h-auto relative shadow-md">
+                    <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                            <i data-lucide="edit-3" class="w-3 h-3"></i> Text Analysis
+                        </span>
+                        <button onclick="clearReport()" class="text-xs font-medium text-slate-400 hover:text-red-500 transition-colors px-2 py-1 rounded hover:bg-red-50">Clear</button>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col p-4 gap-4 relative">
+                        <textarea id="report-input" class="w-full h-1/2 p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 resize-none transition-all" placeholder="Paste medical text here (e.g., 'Patient shows signs of acute bronchitis, prescribed amoxicillin...')..."></textarea>
+                        
+                        <div class="flex justify-end">
+                            <button onclick="analyzeReport()" id="analyze-btn" class="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                <span class="font-medium text-sm">Simplify & Explain</span>
+                            </button>
+                        </div>
+
+                        <div id="report-output" class="flex-1 bg-white border border-slate-100 rounded-xl p-6 overflow-y-auto relative hidden shadow-inner">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                            <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2 text-sm uppercase tracking-wide">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Analysis Result
+                            </h4>
+                            <div id="report-content" class="text-sm text-slate-600 space-y-3 leading-relaxed prose prose-slate max-w-none">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Lucide Icons after loading all elements
+        lucide.createIcons();
+    </script>
+</body>
+</html>
